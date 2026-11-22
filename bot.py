@@ -3,8 +3,8 @@ import re
 import requests
 from playwright.sync_api import sync_playwright
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-CHAT_ID = os.getenv("CHAT_ID")
+BOT_TOKEN = (os.getenv("BOT_TOKEN") or "").strip()
+CHAT_ID = (os.getenv("CHAT_ID") or "").strip()
 
 CINEMA_URL = "https://egy.voxcinemas.com/showtimes?c=city-centre-almaza"
 MOVIE_KEYWORD = "doomsday"
@@ -22,7 +22,8 @@ TARGET_DATES = [
 def send_telegram_alert(message):
   url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
   payload = {"chat_id": CHAT_ID, "text": message}
-  requests.post(url, data=payload, timeout=15)
+  res = requests.post(url, data=payload, timeout=15)
+  print("📩 رد تيليجرام:", res.status_code, res.text)
 
 
 def check_almaza_4dx():
@@ -112,7 +113,7 @@ def check_almaza_4dx():
           f" 😂😂😂\n\nالعروض المتاحة (4DX):\n• {details}\n\nرابط الحجز"
           f" المباشر:\n{CINEMA_URL}"
       )
-      print("\n✅ تم إرسال تنبيه تيليجرام بنجاح!")
+      print("\n✅ انتهت محاولة الإرسال!")
     else:
       print("\n❌ ما نزل 4DX في أي نسخة من 16 إلى 20 ديسمبر لحد الحين.")
 
