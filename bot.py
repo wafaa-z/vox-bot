@@ -8,7 +8,7 @@ CHAT_ID = (os.getenv("CHAT_ID") or "").strip()
 
 CINEMA_URL = "https://egy.voxcinemas.com/showtimes?c=city-centre-almaza"
 MOVIE_KEYWORD = "doomsday"
-TARGET_FORMAT = "standard"
+TARGET_FORMAT = "4dx"
 
 TARGET_DATES = [
     ("20261216", "16 Dec"),
