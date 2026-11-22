@@ -2,7 +2,7 @@ name: VOX Almaza 4DX Alert
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -19,8 +19,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests playwright
-          playwright install --with-deps chromium
+          pip install playwright requests
+          playwright install chromium
+          playwright install-deps chromium
 
       - name: Run Bot
         env:
